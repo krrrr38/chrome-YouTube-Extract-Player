@@ -1,0 +1,21 @@
+<html ng-app="player-app">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./css/player.css" type="text/css" />
+  </head>
+  <body ng-controller="PlayerController">
+    <div>
+      <h1 class="title">Youtube Video Player</h1>
+    </div>
+    <div class="player-container opacity-container">
+      <div id="player"></div>
+    </div>
+    <div class="playlist-container opacity-container">
+      <ul>
+        <li ng-click="playVideo($index)" ng-repeat="id in videos"><img src="http://img.youtube.com/vi/{{id}}/2.jpg" /></li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="./js/lib/angular.min.js"></script>
+    <script type="text/javascript" src="./js/player.js"></script>
+  </body>
+</html>
