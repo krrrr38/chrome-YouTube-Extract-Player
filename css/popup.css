@@ -54,33 +54,3 @@ h1, h2, h3 {
     width: 100px;
     height: 80px;
 }
-
-/* popup_window.html */
-.player-container {
-    float: left;
-    height: 240px;
-}
-
-.playlist-container {
-    height: 240px;
-    width: 120px;
-    overflow-y: scroll;
-}
-
-.playlist-container ul {
-    margin: auto;
-    padding: 0;
-    display: table;
-}
-
-.playlist-container li {
-    margin: 5px;
-    padding: 0;
-    display: table;
-    cursor: pointer;
-}
-
-.playlist-container img {
-    width: 120px;
-    height: 80px;
-}
