@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+    "name": "YoutubeExtractPlayer",
+    "version": "0.0.1",
+    "description": "play youtube videos which are included in this page",
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": [
+                "js/lib/jquery-1.10.2.min.js",
+                "js/content_script.js"
+            ]
+        }
+    ],
+    "background": {
+        "scripts": [
+            "js/lib/jquery-1.10.2.min.js",
+            "js/background.js"
+        ]
+    },
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "YoutubePlaylistImporter",
+        "default_popup": "popup.html"
+
+    },
+    "web_accessible_resources": ["jquery-1.10.2.min.map"]
+}
