@@ -12,5 +12,5 @@ $('#submit-button').click(function() {
     $('[name="video-id"]:checked').each(function() {
         params += "id=" + $(this).val() + "&";
     });
-    window.open('./popup_window.html' + params, null, 'width=500, height=320, menubar=no, toolbar=no, location=no');
+    window.open('http://krrrr38.github.io/YoutubeExtractPlayer/player/index.html' + params, null, 'width=500, height=320, menubar=no, toolbar=no, location=no');
 });
