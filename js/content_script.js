@@ -2,6 +2,7 @@ function getYoutubeIds() {
     var ids = [];
     ids = ids.concat(aTagYoutubeIds());
     ids = ids.concat(iframeYoutubeIds());
+    ids = ids.concat(embedYoutubeIds());
     ids = unique(ids);
     return ids;
 };
@@ -33,6 +34,20 @@ function iframeYoutubeIds() {
     }
     return ids;
 };
+
+function embedYoutubeIds() {
+    var embeds = $('embed'),
+        youtubeRegex = "http://www\.youtube\.com/v/([^?]*).*",
+        ids = [];
+    for(var i = 0; i < embeds.size(); ++i) {
+        var href = embeds[i].src;
+        var found = href.match(youtubeRegex);
+        if (found) {
+            ids.push(found[1]);
+        }
+    }
+    return ids;
+}
 
 function unique(a) {
     return a.reduce(function(p, c) {
