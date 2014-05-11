@@ -1,46 +1,18 @@
 function getYoutubeIds() {
     var ids = [];
-    ids = ids.concat(aTagYoutubeIds());
-    ids = ids.concat(iframeYoutubeIds());
-    ids = ids.concat(embedYoutubeIds());
-    ids = unique(ids);
-    return ids;
+
+    ids = ids.concat(
+        aTagYoutubeIds(),
+        iframeYoutubeIds(),
+        embedYoutubeIds()
+    );
+    return unique(ids);
 };
 
-function aTagYoutubeIds() {
-    var aTags = $('a'),
-        youtubeRegex = "http://www\.youtube\.com/watch\\?v=([^&]*).*",
-        ids = [];
-    for(var i = 0; i < aTags.size(); ++i) {
-        var href = aTags[i].href;
-        var found = href.match(youtubeRegex);
-        if (found) {
-            ids.push(found[1]);
-        }
-    }
-    return ids;
-};
-
-function iframeYoutubeIds() {
-    var iframes = $('iframe'),
-        youtubeRegex = "http://www\.youtube\.com/embed/([^?]*).*",
-        ids = [];
-    for(var i = 0; i < iframes.size(); ++i) {
-        var href = iframes[i].src;
-        var found = href.match(youtubeRegex);
-        if (found) {
-            ids.push(found[1]);
-        }
-    }
-    return ids;
-};
-
-function embedYoutubeIds() {
-    var embeds = $('embed'),
-        youtubeRegex = "http://www\.youtube\.com/v/([^?]*).*",
-        ids = [];
-    for(var i = 0; i < embeds.size(); ++i) {
-        var href = embeds[i].src;
+function extractYoutubeIds(tags, youtubeRegex, attrFunc) {
+    var ids = [];
+    for(var i = 0; i < tags.size(); ++i) {
+        var href = attrFunc(tags[i]);
         var found = href.match(youtubeRegex);
         if (found) {
             ids.push(found[1]);
@@ -49,11 +21,43 @@ function embedYoutubeIds() {
     return ids;
 }
 
+function aTagYoutubeIds() {
+    return extractYoutubeIds(
+        $('a'),
+        "http://www\.youtube\.com/watch\\?v=([^&]*).*",
+        getHref
+    );
+};
+
+function iframeYoutubeIds() {
+    return extractYoutubeIds(
+        $('iframe'),
+        "http://www\.youtube\.com/embed/([^?]*).*",
+        getSrc
+    );
+};
+
+function embedYoutubeIds() {
+    return extractYoutubeIds(
+        $('embed'),
+        "http://www\.youtube\.com/v/([^?]*).*",
+        getSrc
+    );
+}
+
 function unique(a) {
     return a.reduce(function(p, c) {
         if (p.indexOf(c) < 0) p.push(c);
         return p;
     }, []);
+};
+
+var getHref = function(tag) {
+    return tag.href;
+};
+
+var getSrc = function(tag) {
+    return tag.src;
 };
 
 chrome.extension.sendRequest({ids: getYoutubeIds()}, function(response) {});
