@@ -24,7 +24,7 @@ function extractYoutubeIds(tags, youtubeRegex, attrFunc) {
 function aTagYoutubeIds() {
     return extractYoutubeIds(
         $('a'),
-        "http://www\.youtube\.com/watch\\?v=([^&]*).*",
+        "https?://www\.youtube\.com/watch\\?v=([^&]*).*",
         getHref
     );
 };
